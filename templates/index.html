@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Password Generator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #121212;
+            color: #e0e0e0;
+            margin: 50px;
+        }
+        .container {
+            background: #1e1e1e;
+            color: #ffffff;
+            padding: 20px;
+            border-radius: 8px;
+            max-width: 500px;
+            margin: auto;
+            box-shadow: 0 0 10px rgba(255, 255, 255, 0.1);
+        }
+        h2 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        input[type="number"], input[type="text"] {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            background-color: #2c2c2c;
+            border: 1px solid #444;
+            color: #ffffff;
+        }
+        label {
+            display: block;
+            margin-top: 10px;
+        }
+        button {
+            padding: 10px;
+            width: 100%;
+            background-color: #4CAF50;
+            border: none;
+            color: white;
+            font-weight: bold;
+            margin-top: 15px;
+            cursor: pointer;
+        }
+        .password-box {
+            margin-top: 20px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>🔐 Password Generator</h2>
+        <form method="POST">
+            <label>Password Length:
+                <input type="number" name="length" value="12" min="4" max="64" required>
+            </label>
+            <label><input type="checkbox" name="uppercase" checked> Include Uppercase</label>
+            <label><input type="checkbox" name="lowercase" checked> Include Lowercase</label>
+            <label><input type="checkbox" name="digits" checked> Include Digits</label>
+            <label><input type="checkbox" name="special" checked> Include Special Characters</label>
+            <button type="submit">Generate Password</button>
+        </form>
+
+        {% if password %}
+        <div class="password-box">
+            <p>Generated Password:</p>
+            <input type="text" id="passwordOutput" value="{{ password }}" readonly>
+            <button onclick="copyPassword()">📋 Copy Password</button>
+        </div>
+        {% endif %}
+    </div>
+
+    <script>
+        function copyPassword() {
+            var copyText = document.getElementById("passwordOutput");
+            copyText.select();
+            copyText.setSelectionRange(0, 99999); // For mobile
+            document.execCommand("copy");
+            alert("Password copied to clipboard!");
+        }
+    </script>
+</body>
+</html>
